@@ -1,0 +1,54 @@
+Hibernate Speciality
+========================================================================
+* Hibernate is a Object Relational Mapping (ORM) tool/framework which provides implementation for Java Persistance API (JPA) interface. 
+
+* The main advantage of Hibernate is the Object Oriented approach, we don't need to think like a procedural programmer and deal with joins, tuples and so on. Rather, we can follow the OOPs approach.
+
+* In the background Hibernate converts the code into a JDBC code and hits the DB. But we don't need to write JDBC codes at all. Hence, hibernate is much more preferred.
+
+* JDBC codes must be written in try-catch block as it throws a checked exception (SQLexception).
+Hibernate manages these exceptions internally and marks them as unchecked exceptions.
+
+* JDBC is database dependent and we have to manage queries manually. Hibernate provides HQL which is a lot object oriented (closer to OOPs approach) and independent of DB. 
+
+* Associations between objects is hard to manage in JDBC where hibernate provides annotations like @OneToOne, @OneToMany, @ManyToOne and @ManyToMany for denoting associations between entities.
+
+* Primary key is denoted by @Id in hibernate.
+
+---------------------------------------------------------------------------------------------------------------------------
+* In object oriented world we have UML Diagram, but in database world we have ER Diagram.
+Object Relational Impedence Mismatch:
+
+* Mismatch 1: 
+In database, we have primary key but not in OOPs. Hence, Hibernate brings @Id TO FORCE US to have a Surrogative Key. Hibernate reduces such mismatches between OOPs and Database. 
+
+* Mismatch 2: 
+Joins are bidirectional in Database. But there is no such thing in OOPs.
+
+* Hibernate hits the Database in a very optimal way. OTHER ADVANTAGES of HIBERNATE:
+(Automatic Dirty Checking (like Cache), Write behind approach, LAZY vs EAGER, 
+Cascading, Join, HQL)
+
+* When we use .load() method, PC only points to the proxy of the actual object in DB 
+(it's called LAZY loading). Even if we load 1000 objects, it's not going to hit the database for all the aggregated and composed objects within those 1000 objects, hence improving the performance by using the database in an intelligent way.
+
+* Rather if we use something like .getAddress() method, then program will hit the database.
+
+* Write behind approach: 
+If we are modifying an object multiple times during the runtime, hibernate won't hit the DB always.
+During any commit, hibernate will hit the database. Hibernate session object deals with the proxy of the object and it only saves the final state of the object during commit. 
+Due to such freedom from database, hibernate performs better than standard JDBC code. 
+In JDBC, we have to optimise our codes and logics manually.
+
+* For onetoone, hibernate used EAGER approach 
+(For customer_details, hibernate will also fetch the customer_address )
+
+* For onetomany and manytomany, hibernate uses LAZY approach 
+(For customer_details, hibernate will not fetch all the bank_account_details)
+
+* Cascading:
+Cascading is Hibernate's way of using transitive persistence model. Transitive persistence is a technique that allows you to propagate persistence to transient (object not yet saved in database) and detached sub-graphs (child objects) automatically. 
+For example, a newly created child object of already persistent parent object should automatically become persistent without a call to save() or persist() methods.
+Cascading in Hibernate has many options like save-update, persist, merge, delete etc. 
+Cascade='all' is a way to apply all cascading options.
+
